@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Doctor Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="../assets/app.js"></script>
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3763/3763370.png">
+
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <!-- Header -->
+<header class="bg-white shadow sticky top-0 z-10">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <!-- Logo + Name -->
+    <div class="flex items-center gap-2">
+      <img src="https://cdn-icons-png.flaticon.com/512/3763/3763370.png" 
+           alt="Clinic Logo" class="w-8 h-8">
+      <a class="text-lg font-semibold">Korle-bu Eye Center</a>
+    </div>
+
+
+    <nav class="flex items-center gap-4 text-sm">
+      <button id="logoutBtn" class="px-3 py-1.5 rounded-lg bg-gray-900 text-white" onclick="logout()">Logout</button>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto p-6">
+    <!-- Welcome Message -->
+    <h1 id="welcomeMessage" class="text-3xl font-bold mb-6"></h1>
+
+    <!-- Appointment Table -->
+    <h2 class="text-xl font-semibold mb-2">My Appointments</h2>
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+      <table class="w-full border-collapse border border-gray-300 text-sm">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-2 py-1">Date</th>
+            <th class="border px-2 py-1">Time</th>
+            <th class="border px-2 py-1">Patient</th>
+            <th class="border px-2 py-1">Reason</th>
+            <th class="border px-2 py-1">Status</th>
+            <th class="border px-2 py-1">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="doctorAppointmentsTableBody">
+          <!-- Filled dynamically by app.js -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      const welcomeMessage = document.getElementById("welcomeMessage");
+
+      // Time-based greeting
+      const now = new Date();
+      const hour = now.getHours();
+      let greeting = "Hello";
+
+      if (hour < 12) {
+        greeting = "Good Morning";
+      } else if (hour < 18) {
+        greeting = "Good Afternoon";
+      } else {
+        greeting = "Good Evening";
+      }
+
+      if (currentUser && currentUser.role === "doctor") {
+        welcomeMessage.textContent = `${greeting}, Dr. ${currentUser.name}`;
+      } else {
+        welcomeMessage.textContent = `${greeting}, Doctor`;
+      }
+    });
+
+    
+  </script>
+</body>
+</html>

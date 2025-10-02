@@ -1,0 +1,1 @@
+<?php require 'config.php'; echo 'Stub login'; ?> 
